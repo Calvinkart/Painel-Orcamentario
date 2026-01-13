@@ -1,0 +1,28 @@
+let
+    Fonte = Exchange.Contents("setor@orgao.gov.br"),
+    Mail1 = Fonte{[Name="Mail"]}[Data],
+    #"Linhas Filtradas" = Table.SelectRows(Mail1, each ([Folder Path] = "\TG_Orcamento\")),
+    #"Linhas Classificadas" = Table.Sort(#"Linhas Filtradas",{{"DateTimeSent", Order.Descending}}),
+    #"Linhas Filtradas3" = Table.SelectRows(#"Linhas Classificadas", each Text.Contains(Text.Lower([Subject]), "dota") = true),
+    #"Linhas Filtradas1" = Table.SelectRows(#"Linhas Filtradas3", each [HasAttachments] = true),
+    #"Attachments Expandido" = Table.ExpandTableColumn(#"Linhas Filtradas1", "Attachments", {"Name", "Extension", "IsInline", "Size", "ContentType", "Last Modified", "AttachmentContent"}, {"Attachments.Name", "Attachments.Extension", "Attachments.IsInline", "Attachments.Size", "Attachments.ContentType", "Attachments.Last Modified", "Attachments.AttachmentContent"}),
+    #"Linhas Filtradas2" = Table.SelectRows(#"Attachments Expandido", each ([Attachments.Extension] = ".xlsx")),
+    #"Attachments AttachmentContent" = #"Linhas Filtradas2"{0}[Attachments.AttachmentContent],
+    #"Pasta de Trabalho Importada do Excel" = Excel.Workbook(#"Attachments AttachmentContent"),
+    #"Abre planilha" = #"Pasta de Trabalho Importada do Excel"{[Item="0. 2025 Dotação Orçamentária Di",Kind="Sheet"]}[Data],
+    #"Remover linhas em branco" = Table.SelectRows(#"Abre planilha", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null}))),
+    #"Linhas Superiores Removidas" = Table.Skip(#"Remover linhas em branco",4),
+    Personalizar1 = Table.ReplaceValue(#"Linhas Superiores Removidas",null,"0",Replacer.ReplaceValue,{"Column11"}),
+    #"Colunas Removidas" = Table.RemoveColumns(Personalizar1,{"Column1","Column3","Column4"}),
+    Personalizar2 = Table.ReplaceValue(#"Colunas Removidas",null,"0",Replacer.ReplaceValue,{"Column12"}),
+    #"Cabeçalhos Promovidos1" = Table.PromoteHeaders(Personalizar2, [PromoteAllScalars=true]),
+    #"Colunas Renomeadas1" = Table.RenameColumns(#"Cabeçalhos Promovidos1",{{"0", "Desc"}}),
+    #"Colunas Mescladas1" = Table.CombineColumns(#"Colunas Renomeadas1",{"Column2", "Column3"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Acao Governo"),
+    #"Colunas Mescladas" = Table.CombineColumns(#"Colunas Mescladas1",{"Column4", "Column5"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Plano Orcamentario"),
+    #"Colunas Mescladas2" = Table.CombineColumns(#"Colunas Mescladas",{"Grupo Despesa", "Desc"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Grupo Despesa"),
+    #"Colunas Removidas1" = Table.RemoveColumns(#"Colunas Mescladas2",{"Column6"}),
+    #"Colunas Renomeadas" = Table.RenameColumns(#"Colunas Removidas1",{{"PROJETO INICIAL DA LOA - FIXACAO DESPESA", "PLOA"}, {"Column1", "Tipo Despesa"}}),
+    #"Valor Substituído3" = Table.ReplaceValue(#"Colunas Renomeadas",null,0,Replacer.ReplaceValue,{"DOTACAO INICIAL"}),
+    Personalizar3 = Table.TransformColumnTypes(#"Valor Substituído3",{{"Tipo Despesa", type text}, {"Acao Governo", type text}, {"Plano Orcamentario", type text}, {"DOTACAO ATUALIZADA", Currency.Type}, {"DOTACAO INICIAL", Currency.Type}, {"PLOA", Currency.Type}})
+in
+    Personalizar3
