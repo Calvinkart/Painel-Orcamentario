@@ -1,5 +1,5 @@
-# Painel-Orcamentario
-Relatório Power BI de monitoramento de orcamento com acesso dos dados enviados por email pelo T.G. da STN
+# Painel Orçamentário
+Relatório Power BI de monitoramento de orçamento com acesso dos dados enviados por email pelo T.G. da STN
 
 Este projeto contém o arquivo Power BI e o código M do editor avançado para leitura das 3 planilhas enviadas pelo Serpro que são geradas pelo Tesouro Gerencial da Secretaria de Tesouro Nacional. Você pode usar os produtos sem licença da Microsoft Power BI Desktop e usar o Serviço Online do Office 360 para publicar o painel público sem custo.
 
