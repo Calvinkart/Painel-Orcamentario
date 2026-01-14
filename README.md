@@ -14,3 +14,7 @@ A estrutura da planilha poderá ter leves alterações comparadas com a utilizad
 Agende a carga do Painel no Serviço Online conforme sua escolha de subscrição do T.G. (1 dia da semana, Segundas e Sextas, etc.).
 
 Faça bom uso!
+
+Créditos:
+- Os KPIs do Painel foram baseados no painel do curso de Power BI com dados orçamentários da ENAP
+- A extração de planilhas dentro de emails do Outlook foi feita com base em dicas do canal https://www.youtube.com/@RonanVico
