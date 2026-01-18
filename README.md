@@ -12,8 +12,6 @@ O extrator irá ler cada planilha de uma pasta que vc deve criar na caixa do seu
 
 Deverá ser criada uma regra no Outlook para filtrar o remetente “naoresponda@serpro.gov.br” e cujo assunto contenha os termos “dotação” ou “despesas”, movendo para esta subpasta (no exemplo, subpasta TG_Orcamento). A fonte do ETL terá que ser alterada substituindo setor e orgão do endereço de e-mail para o seu caso particular.
 
-A estrutura das planilhas
-
 Agende a carga do Painel no Serviço Online conforme sua escolha de subscrição do T.G. (1 dia da semana, Segundas e Sextas, etc.).
 
 Faça bom uso!
