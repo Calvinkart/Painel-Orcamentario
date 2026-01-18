@@ -8,9 +8,11 @@ Seu órgão precisa ter conta na STN e assinar o serviço de subscrição de e-m
 
 Procure gerar 3 planilhas: Dotação Orçamentária, Despesas Obrigatórias e Despesas Discricionárias. Os dados principais podem ser vistos no Power Query do Painel ou nas planilhas exemplo (originais).
 
-O extrator irá ler cada planilha de uma pasta que vc deve criar na caixa do seu setor em seu órgão. Deverá ser criada uma regra no Outlook para filtrar o remetente “naoresponda@serpro.gov.br” e cujo assunto contenha os termos “dotação” ou “despesas”, movendo para esta subpasta (no exemplo, subpasta TG_Orcamento). A fonte do ETL terá que ser alterada substituindo setor e orgão do endereço de e-mail para o seu caso particular.
+O extrator irá ler cada planilha de uma pasta que vc deve criar na caixa do seu setor em seu órgão e tranforma-la no formato tabular,  retirando sub-totais e outras linhas desnecessárias, mas poderão ser necessárias leves alterações comparadas com as utilizadas neste painel (cabeçalho, linhas em branco). Use modelo padrão de outro órgão para gerar dados similares às planilhas exemplo. 
 
-A estrutura das planilhas poderá ter leves alterações comparadas com as utilizadas neste painel (cabeçalho, linhas em branco) e o ETL do Power Query precisará ser editado para correção do formato da planilha que visa tabular os dados, retirando sub-totais e outras linhas desnecessárias. Use modelo padrão de outro órgão para gerar os dados similares às planilhas exemplo. 
+Deverá ser criada uma regra no Outlook para filtrar o remetente “naoresponda@serpro.gov.br” e cujo assunto contenha os termos “dotação” ou “despesas”, movendo para esta subpasta (no exemplo, subpasta TG_Orcamento). A fonte do ETL terá que ser alterada substituindo setor e orgão do endereço de e-mail para o seu caso particular.
+
+A estrutura das planilhas
 
 Agende a carga do Painel no Serviço Online conforme sua escolha de subscrição do T.G. (1 dia da semana, Segundas e Sextas, etc.).
 
